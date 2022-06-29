@@ -1165,9 +1165,9 @@ get_distro() {
 
                 tiny)
                     case $osx_version in
-                        10.[4-7]*)            distro=${distro/${codename}/Mac OS X} ;;
-                        10.[8-9]*|10.1[0-1]*) distro=${distro/${codename}/OS X} ;;
-                        10.1[2-6]*|11.0*)     distro=${distro/${codename}/macOS} ;;
+                        10.[4-7]*)                     distro=${distro/${codename}/Mac OS X} ;;
+                        10.[8-9]*|10.1[0-1]*)          distro=${distro/${codename}/OS X} ;;
+                        10.1[2-6]*|11.*|12.*|13.*)     distro=${distro/${codename}/macOS} ;;
                     esac
                     distro=${distro/ ${osx_build}}
                 ;;
