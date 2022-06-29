@@ -4,7 +4,7 @@
 # shellcheck disable=2009
 #
 # Neofetch: A command-line system information tool written in bash 3.2+.
-# https://github.com/dylanaraps/neofetch
+# https://github.com/LanikSJ/neofetch
 #
 # The MIT License (MIT)
 #
@@ -51,7 +51,7 @@ export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules/
 # Neofetch default config.
 read -rd '' config <<'EOF'
 # See this wiki page for more info:
-# https://github.com/dylanaraps/neofetch/wiki/Customizing-Info
+# https://github.com/LanikSJ/neofetch/wiki/Customizing-Info
 print_info() {
     info title
     info underline
@@ -867,7 +867,7 @@ thumbnail_dir="${XDG_CACHE_HOME:-${HOME}/.cache}/thumbnails/neofetch"
 # Flag:     --crop_mode
 #
 # See this wiki page to learn about the fit and fill options.
-# https://github.com/dylanaraps/neofetch/wiki/What-is-Waifu-Crop%3F
+# https://github.com/LanikSJ/neofetch/wiki/What-is-Waifu-Crop%3F
 crop_mode="normal"
 
 # Crop offset
@@ -4982,7 +4982,7 @@ cache_uname() {
 
     if [[ "$kernel_name" == "Darwin" ]]; then
         # macOS can report incorrect versions unless this is 0.
-        # https://github.com/dylanaraps/neofetch/issues/1607
+        # https://github.com/LanikSJ/neofetch/issues/1607
         export SYSTEM_VERSION_COMPAT=0
 
         IFS=$'\n' read -d "" -ra sw_vers <<< "$(awk -F'<|>' '/key|string/ {print $3}' \
@@ -5315,7 +5315,7 @@ DEVELOPER:
     --gen-man                   Generate a manpage for Neofetch in your PWD. (Requires GNU help2man)
 
 
-Report bugs to https://github.com/dylanaraps/neofetch/issues
+Report bugs to https://github.com/LanikSJ/neofetch/issues
 
 "
 exit 1
