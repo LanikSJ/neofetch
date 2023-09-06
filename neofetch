@@ -1290,8 +1290,6 @@ get_model() {
             else
                 mac_model=$(sysctl -n hw.model)
                 case $mac_model in
-                    Mac14,10):              "MacBook Pro (16-inch, M2, 2023)" ;;
-                    Mac14,7):               "MacBook Pro (13-inch, M2, 2022)" ;;
                     MacBookPro18,[3-4]):    "MacBook Pro (14-inch, 2021)" ;;
                     MacBookPro18,[1-2]):    "MacBook Pro (16-inch, 2021)" ;;
                     MacBookPro17,1):        "MacBook Pro (13-inch, M1, 2020)" ;;
@@ -1328,6 +1326,9 @@ get_model() {
                     MacBookPro5,2):         "MacBook Pro (17-inch, Mid/Early 2009)" ;;
                     MacBookPro5,1):         "MacBook Pro (15-inch, Late 2008)" ;;
                     MacBookPro4,1):         "MacBook Pro (17/15-inch, Early 2008)" ;;
+		    Mac14,10):              "MacBook Pro (16-inch, M2, 2023)" ;;
+                    Mac14,7):               "MacBook Pro (13-inch, M2, 2022)" ;;
+		    Mac14,6):               "MacBook Pro (16-inch, M2 Max, 2023)" ;;
                     Mac14,2):               "MacBook Air (M2, 2022)" ;;
                     MacBookAir10,1):        "MacBook Air (M1, 2020)" ;;
                     MacBookAir9,1):         "MacBook Air (Retina, 13-inch, 2020)" ;;
