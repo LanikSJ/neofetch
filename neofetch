@@ -1754,7 +1754,9 @@ get_packages() {
 
             has nix-store && {
                 nix-user-pkgs() {
+                    # shellcheck disable=SC2317
                     nix-store -qR ~/.nix-profile
+                    # shellcheck disable=SC2317
                     nix-store -qR /etc/profiles/per-user/"$USER"
                 }
                 manager=nix-system  && tot nix-store -qR /run/current-system/sw
@@ -1802,7 +1804,9 @@ get_packages() {
 
             has nix-store && {
                 nix-user-pkgs() {
+                    # shellcheck disable=SC2317
                     nix-store -qR ~/.nix-profile
+                    # shellcheck disable=SC2317
                     nix-store -qR /etc/profiles/per-user/"$USER"
                 }
                 manager=nix-system && tot nix-store -qR /run/current-system/sw
@@ -2904,6 +2908,7 @@ get_memory() {
             pages_wired="$(vm_stat | awk '/ wired/ { print $4 }')"
             pages_compressed="$(vm_stat | awk '/ occupied/ { printf $5 }')"
             pages_compressed="${pages_compressed:-0}"
+            # shellcheck disable=SC2004
             mem_used="$(((${pages_app} + ${pages_wired//.} + ${pages_compressed//.}) * hw_pagesize / 1024 / 1024))"
         ;;
 
@@ -3221,13 +3226,14 @@ get_resolution() {
                             if spdisplays_resolution="$(PlistBuddy -c "print 0:_items:${gpu}:spdisplays_ndrvs:${display}:_spdisplays_resolution" $temp_plist)" 2>/dev/null; then
                                 spdisplays_resolution="${spdisplays_resolution//.[0-9][0-9]/}"
                                 if spdisplays_pixels="$(PlistBuddy -c "print 0:_items:${gpu}:spdisplays_ndrvs:${display}:_spdisplays_pixels" $temp_plist)" 2>/dev/null; then
-                                  scaled_x="$(echo $spdisplays_resolution | awk '{print $1}')"
-                                  output_x="$(echo $spdisplays_pixels | awk '{print $1}')"
+                                  scaled_x="$(echo "$spdisplays_resolution" | awk '{print $1}')"
+                                  output_x="$(echo "$spdisplays_pixels" | awk '{print $1}')"
+                                  # shellcheck disable=SC2219
                                   let scale_factor=$output_x/$scaled_x
-                                  [[ $scale_factor > 1 ]] && spdisplays_resolution="${spdisplays_resolution// @/ @${scale_factor}x @}"
+                                  [[ $scale_factor -gt 1 ]] && spdisplays_resolution="${spdisplays_resolution// @/ @${scale_factor}x @}"
                                 fi
                                 spdisplays_resolution="${spdisplays_resolution// x /x}"
-                                [[ $gpu > 0 || $display > 0 ]] && resolution+=", "
+                                [[ $gpu -gt 0 || $display -gt 0 ]] && resolution+=", "
                                 resolution+="${spdisplays_resolution}"
                             else
                                 break
@@ -4105,12 +4111,12 @@ get_local_ip() {
 }
 
 get_public_ip() {
-    if [[ ! -n "$public_ip_host" ]] && type -p dig >/dev/null; then
+    if [[ -z "$public_ip_host" ]] && type -p dig >/dev/null; then
         public_ip="$(dig +time=1 +tries=1 +short myip.opendns.com @resolver1.opendns.com)"
        [[ "$public_ip" =~ ^\; ]] && unset public_ip
     fi
 
-    if [[ ! -n "$public_ip_host" ]] && [[ -z "$public_ip" ]] && type -p drill >/dev/null; then
+    if [[ -z "$public_ip_host" ]] && [[ -z "$public_ip" ]] && type -p drill >/dev/null; then
         public_ip="$(drill myip.opendns.com @resolver1.opendns.com | \
                      awk '/^myip\./ && $3 == "IN" {print $5}')"
     fi
